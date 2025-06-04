@@ -1,0 +1,158 @@
+.aurora-text {
+    font-size: clamp(3rem, 10vw, 8rem); /* Responsive font size */
+    font-weight: 900; /* Extra bold text */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block; /* Essential for background-clip to work */
+    padding: 0 10px; /* Some padding to prevent clipping on edges */
+
+    /* Define the aurora gradient */
+    background: linear-gradient(
+        120deg, /* Angle for the gradient */
+        #8A2BE2, /* Blue Violet */
+        #4B0082, /* Indigo */
+        #00BFFF, /* Deep Sky Blue */
+        #00FF7F, /* Spring Green */
+        #DA70D6  /* Orchid */
+    );
+    background-size: 400% 400%; /* Make the background large to allow movement */
+
+    /* Apply the gradient to the text */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* Make text transparent to show background */
+
+    /* Animation properties */
+    animation: aurora-movement 15s ease-in-out infinite alternate; /* Slower, smoother animation */
+    border-radius: 0.75rem; /* Rounded corners for the text container */
+}
+
+/* Keyframes for the aurora movement */
+@keyframes aurora-movement {
+    0% {
+        background-position: 0% 50%; /* Start position */
+    }
+    25% {
+        background-position: 100% 25%; /* Move right and up */
+    }
+    50% {
+        background-position: 0% 75%; /* Move left and down */
+    }
+    75% {
+        background-position: 100% 50%; /* Move right and center */
+    }
+    100% {
+        background-position: 0% 50%; /* Return to start, creating a loop */
+    }
+}
+
+
+
+
+@keyframes lights {
+    0% {
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+    
+    30% { 
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        -0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    40% { 
+      color: hsl(230, 100%, 95%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 90%, 0.5),
+        -0.25em -0.125em 0.125em hsla(40, 100%, 60%, 0.2),
+        0.25em 0.125em 0.125em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    70% {
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        -0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    100% {
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+    
+  }
+
+
+
+
+  .spotlight-pill-wrapper {
+    border: 1px solid #343a40;
+    padding: 2px;
+    border-radius: 20px;
+    position: relative; /* Crucial for child/pseudo-element positioning and mouse coords */
+    
+    /* This is the default border color, visible when the glow isn't active or where it's transparent */
+    /* background-color: var(--default-border-color); */
+    overflow: hidden; /* Ensures pseudo-element respects border-radius if it bleeds slightly */
+
+    /* z-index: 10; */
+
+    --glow-spread: 260px; /* The maximum radius of the glowing effect from the mouse */
+    --color-near: #6f00ff; /* Vibrant blue for near the mouse */
+    --color-fade: #a02abd; /* Strong red for further away */
+  }
+
+/* The ::before pseudo-element creates the glowing layer */
+.spotlight-pill-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit; /* Match parent's border radius */
+
+    /* The radial gradient for the glow. Its center follows the mouse. */
+    background-image:
+    radial-gradient(
+                circle var(--glow-spread) at var(--mouse-x) var(--mouse-y),
+                var(--color-near) 0%,        /* Blue right at the mouse point */
+                var(--color-near) 10%,       /* Blue stays solid for 20% of the spread (e.g., 20px if spread is 100px) */
+                var(--color-fade) 60%,       /* Fades from Blue to Red (Red is dominant at 70% of spread) */
+                transparent 100%             /* Fades from Red to transparent (fully transparent at 100% of spread) */
+            );
+    /* background-repeat: no-repeat; Only one instance of the gradient */
+    opacity:1;
+    /* opacity: 0; Hidden by default, will be faded in */
+
+    pointer-events: none; /* Allows mouse events to pass through to the wrapper */
+    /* z-index: 0; Sits on top of the wrapper's background-color, but below content */
+    /* z-index: 1000; */
+    z-index: 0 !important;
+  }
+
+/* When the 'glowing' class is active on the wrapper, the ::before pseudo-element (glow) becomes visible */
+/* .spotlight-pill-wrapper.glowing::before {
+    opacity: 1;
+} */
+
+
+.spotlight-bg-gradient{
+  position: relative;
+  border-radius: inherit;
+  background-color:black !important;
+  z-index: 10;
+}

@@ -1,21 +1,8 @@
-@import './base.css';
+/* Import Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); 
 
 
-@import url(
-'./poppins_fontdl_0.css'
-);
-
-
-#app {
-  /* max-width: 1280px; */
-  margin: 0 auto;
-  padding: 0;
-  font-weight: normal;
+:root{
+    --mouse-x: 0px;
+    --mouse-y: 0px;
 }
-
-/* body,
-button,
-::placeholder {
-  font-family: 'Poppins', sans-serif;
-  color: rgb(100, 99, 99);
-} */
